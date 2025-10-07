@@ -1,0 +1,22 @@
+/*David Fernando Bolanos Lopez: UO3023131    */
+
+
+/*Estilos de layout para MotoGP Desktop*/
+
+/*Especificidad: (0,0,1)*/
+header{
+    display:flexbox;
+    flex-direction:row;
+}
+/*Especificidad: (0,0,1)*/
+header nav{
+    display:flexbox;
+    flex-direction:column;
+}
+/*Redefinimos header y header nav*/
+@media (min-width: 320px) and (max-width: 799px){
+    /*Especificidad: (0,0,2)*/
+    header nav{
+        flex-direction: column;
+    }
+}

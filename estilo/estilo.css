@@ -10,9 +10,29 @@ body{
 }
 /*Especificidad: (0,0,1)*/
 header{
+  color:#00FFFF;
   background-color:#1A1A1A;  
 }
-/*Especifidad: (0,0,2)*/
-header h1 a,header nav a {
-  color:aqua;
+
+/*Especifidad: (0,0,1)*/
+a{
+  text-decoration-line: none;
 }
+a:hover{
+  color:aquamarine;
+}
+
+/*Especifidad: (0,0,2)*/
+header a {
+  color:#00FFFF;
+}
+/*Especifidad: (0,1,0) */
+.active{
+  color:#7d8aa6;
+}
+/*Especifidad:(0,0,1)*/
+p:first-of-type {
+  font-size: 0.75em;
+}
+  
+
