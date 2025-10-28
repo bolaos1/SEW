@@ -1,0 +1,41 @@
+/*David Fernando Bolanos Lopez: UO3023131    */
+
+
+/*Estilos generales para MotoGP Desktop*/
+/*Especifidad:(0,0,1)*/
+body{
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background-color: #7d8aa6;
+  color: #1D1E2A;
+}
+/*Especificidad: (0,0,1)*/
+header{
+  color:#00FFFF;
+  background-color:#1A1A1A;  
+}
+
+/*Especifidad: (0,0,1)*/
+a{
+  text-decoration-line: none;
+}
+a:hover{
+  color:aquamarine;
+  /*Advertencia de color permitida: hereda backgroundcolor del header*/
+}
+
+/*Especifidad: (0,0,2)*/
+header a {
+  color:#00FFFF;
+  /*Advertencia de color permitida: hereda backgroundcolor del header*/
+}
+/*Especifidad: (0,1,0) */
+.active{
+  color:#7d8aa6;
+  /*Advertencia de color permitida: hereda backgroundcolor del header*/
+}
+/*Especifidad:(0,0,1)*/
+p:first-of-type {
+  font-size: 0.75em;
+}
+  
+
