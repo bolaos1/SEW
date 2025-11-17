@@ -16,9 +16,14 @@ header{
 
 /*Especifidad: (0,0,1)*/
 a{
+  color:#002244; 
   text-decoration-line: none;
 }
-a:hover{
+/*Especifidad: (0,1,1)*/
+a:visited{
+  color: #112233;
+}
+a:hover, a:focus{
   color:aquamarine;
   /*Advertencia de color permitida: hereda backgroundcolor del header*/
 }
