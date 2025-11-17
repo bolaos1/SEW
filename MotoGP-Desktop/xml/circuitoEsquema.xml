@@ -1,0 +1,250 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<circuito xmlns="https://www.uniovi.es"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://www.uniovi.es circuito.xsd">
+    <nombre>Balaton Park</nombre>
+    <distancia unidades="metros">4115</distancia>
+    <ancho unidades="metros">14</ancho>
+    <fecha>2025-08-24</fecha>
+    <hora>14:00:00</hora>
+    <vueltas>26</vueltas>
+    <localidad>Balatonfőkajár</localidad>
+    <pais>Hungría</pais>
+    <patrocinadorPrincipal>Michelin</patrocinadorPrincipal>
+
+    <referencias>
+        <enlace alt="Información técnica sobre el circuito">
+            https://www.balatonparkcircuit.com/trackinfo</enlace>
+        <enlace alt="Información histórica sobre el circuito">
+            https://en.wikipedia.org/wiki/Balaton_Park_Circuit</enlace>
+        <enlace alt="Información de sectores del circuito">
+            https://www.racingcircuits.info/europe/hungary/balaton-park.html</enlace>
+    </referencias>
+
+    <imagenes>
+        <img alt="Vista aérea del circuito Balaton Park">../multimedia/imagenPeriferica.jpg</img>
+        <img alt="Vista de la recta final">../multimedia/imagenRectaFinal.jpg</img>
+    </imagenes>
+    <videos>
+        <video tipo="video/mp4" titulo="Entrada a la meta">../multimedia/videoEntradaMeta.mp4</video>
+    </videos>
+    <coordenada>
+        <latitud unidades="grados">47.007222</latitud>
+        <longitud unidades="grados">18.200833</longitud>
+        <altitud unidades="metros">108</altitud>
+    </coordenada>
+
+   <segmentos>
+        <segmento sector="1">
+            <distancia unidades="metros">335</distancia>
+            <longitud unidades="grados">18.198806</longitud>
+            <latitud unidades="grados">47.004579</latitud>
+            <altitud unidades="metros">109</altitud>
+        </segmento>
+        <segmento sector="1">
+            <distancia unidades="metros">38</distancia>
+            <longitud unidades="grados">18.198393</longitud>
+            <latitud unidades="grados">47.004773</latitud>
+            <altitud unidades="metros">109</altitud>
+        </segmento>
+        <segmento sector="1">
+            <distancia unidades="metros">99</distancia>
+            <longitud unidades="grados">18.198364</longitud>
+            <latitud unidades="grados">47.005665</latitud>
+            <altitud unidades="metros">109</altitud>
+        </segmento>
+        <segmento sector="1">
+            <distancia unidades="metros">39</distancia>
+            <longitud unidades="grados">18.197889</longitud>
+            <latitud unidades="grados">47.005809</latitud>
+            <altitud unidades="metros">109</altitud>
+        </segmento>
+        <segmento sector="1">
+            <distancia unidades="metros">32</distancia>
+            <longitud unidades="grados">18.197552</longitud>
+            <latitud unidades="grados">47.005632</latitud>
+            <altitud unidades="metros">109</altitud>
+        </segmento>
+        <segmento sector="1">
+            <distancia unidades="metros">78</distancia>
+            <longitud unidades="grados">18.197122</longitud>
+            <latitud unidades="grados">47.004997</latitud>
+            <altitud unidades="metros">109</altitud>
+        </segmento>
+        <segmento sector="1">
+            <distancia unidades="metros">66</distancia>
+            <longitud unidades="grados">18.197248</longitud>
+            <latitud unidades="grados">47.004408</latitud>
+            <altitud unidades="metros">109</altitud>
+        </segmento>
+        <segmento sector="1">
+            <distancia unidades="metros">117</distancia>
+            <longitud unidades="grados">18.198244</longitud>
+            <latitud unidades="grados">47.003605</latitud>
+            <altitud unidades="metros">109</altitud>
+        </segmento>
+        <segmento sector="1">
+            <distancia unidades="metros">48</distancia>
+            <longitud unidades="grados">18.198865</longitud>
+            <latitud unidades="grados">47.003521</latitud>
+            <altitud unidades="metros">110</altitud>
+        </segmento>
+        <segmento sector="1">
+            <distancia unidades="metros">45</distancia>
+            <longitud unidades="grados">18.199383</longitud>
+            <latitud unidades="grados">47.003726</latitud>
+            <altitud unidades="metros">109</altitud>
+        </segmento>
+        <segmento sector="1">
+            <distancia unidades="metros">484</distancia>
+            <longitud unidades="grados">18.202329</longitud>
+            <latitud unidades="grados">47.007592</latitud>
+            <altitud unidades="metros">109</altitud>
+        </segmento>
+        <segmento sector="2">
+            <distancia unidades="metros">114</distancia>
+            <longitud unidades="grados">18.203025</longitud>
+            <latitud unidades="grados">47.008505</latitud>
+            <altitud unidades="metros">111</altitud>
+        </segmento>
+        <segmento sector="2">
+            <distancia unidades="metros">36</distancia>
+            <longitud unidades="grados">18.203492</longitud>
+            <latitud unidades="grados">47.008430</latitud>
+            <altitud unidades="metros">111</altitud>
+        </segmento>
+        <segmento sector="2">
+            <distancia unidades="metros">66</distancia>
+            <longitud unidades="grados">18.204036</longitud>
+            <latitud unidades="grados">47.007971</latitud>
+            <altitud unidades="metros">110</altitud>
+        </segmento>
+        <segmento sector="2">
+            <distancia unidades="metros">166</distancia>
+            <longitud unidades="grados">18.206213</longitud>
+            <latitud unidades="grados">47.008091</latitud>
+            <altitud unidades="metros">110</altitud>
+        </segmento>
+        <segmento sector="2">
+            <distancia unidades="metros">78</distancia>
+            <longitud unidades="grados">18.207152</longitud>
+            <latitud unidades="grados">47.007806</latitud>
+            <altitud unidades="metros">110</altitud>
+        </segmento>
+        <segmento sector="2">
+            <distancia unidades="metros">79</distancia>
+            <longitud unidades="grados">18.207728</longitud>
+            <latitud unidades="grados">47.007210</latitud>
+            <altitud unidades="metros">109</altitud>
+        </segmento>
+        <segmento sector="2">
+            <distancia unidades="metros">389</distancia>
+            <longitud unidades="grados">18.209083</longitud>
+            <latitud unidades="grados">47.003837</latitud>
+            <altitud unidades="metros">109</altitud>
+        </segmento>
+        <segmento sector="2">
+            <distancia unidades="metros">52</distancia>
+            <longitud unidades="grados">18.209765</longitud>
+            <latitud unidades="grados">47.003827</latitud>
+            <altitud unidades="metros">109</altitud>
+        </segmento>
+        <segmento sector="2">
+            <distancia unidades="metros">144</distancia>
+            <longitud unidades="grados">18.209994</longitud>
+            <latitud unidades="grados">47.002544</latitud>
+            <altitud unidades="metros">109</altitud>
+        </segmento>
+        <segmento sector="2">
+            <distancia unidades="metros">41</distancia>
+            <longitud unidades="grados">18.210481</longitud>
+            <latitud unidades="grados">47.002380</latitud>
+            <altitud unidades="metros">109</altitud>
+        </segmento>
+        <segmento sector="2">
+            <distancia unidades="metros">42</distancia>
+            <longitud unidades="grados">18.210875</longitud>
+            <latitud unidades="grados">47.002651</latitud>
+            <altitud unidades="metros">108</altitud>
+        </segmento>
+        <segmento sector="2">
+            <distancia unidades="metros">176</distancia>
+            <longitud unidades="grados">18.210377</longitud>
+            <latitud unidades="grados">47.004194</latitud>
+            <altitud unidades="metros">108</altitud>
+        </segmento>
+        <segmento sector="3">
+            <distancia unidades="metros">222</distancia>
+            <longitud unidades="grados">18.209748</longitud>
+            <latitud unidades="grados">47.006140</latitud>
+            <altitud unidades="metros">108</altitud>
+        </segmento>
+        <segmento sector="3">
+            <distancia unidades="metros">158</distancia>
+            <longitud unidades="grados">18.208770</longitud>
+            <latitud unidades="grados">47.007392</latitud>
+            <altitud unidades="metros">110</altitud>
+        </segmento>
+        <segmento sector="3">
+            <distancia unidades="metros">105</distancia>
+            <longitud unidades="grados">18.207804</longitud>
+            <latitud unidades="grados">47.008064</latitud>
+            <altitud unidades="metros">110</altitud>
+        </segmento>
+        <segmento sector="3">
+            <distancia unidades="metros">287</distancia>
+            <longitud unidades="grados">18.204552</longitud>
+            <latitud unidades="grados">47.009376</latitud>
+            <altitud unidades="metros">109</altitud>
+        </segmento>
+        <segmento sector="3">
+            <distancia unidades="metros">43</distancia>
+            <longitud unidades="grados">18.204723</longitud>
+            <latitud unidades="grados">47.009740</latitud>
+            <altitud unidades="metros">109</altitud>
+        </segmento>
+        <segmento sector="3">
+            <distancia unidades="metros">28</distancia>
+            <longitud unidades="grados">18.204515</longitud>
+            <latitud unidades="grados">47.009952</latitud>
+            <altitud unidades="metros">109</altitud>
+        </segmento>
+        <segmento sector="3">
+            <distancia unidades="metros">73</distancia>
+            <longitud unidades="grados">18.203799</longitud>
+            <latitud unidades="grados">47.010397</latitud>
+            <altitud unidades="metros">109</altitud>
+        </segmento>
+        <segmento sector="3">
+            <distancia unidades="metros">103</distancia>
+            <longitud unidades="grados">18.202459</longitud>
+            <latitud unidades="grados">47.010224</latitud>
+            <altitud unidades="metros">109</altitud>
+        </segmento>
+        <segmento sector="3">
+            <distancia unidades="metros">31</distancia>
+            <longitud unidades="grados">18.202294</longitud>
+            <latitud unidades="grados">47.009964</latitud>
+            <altitud unidades="metros">109</altitud>
+        </segmento>
+        <segmento sector="3">
+            <distancia unidades="metros">67</distancia>
+            <longitud unidades="grados">18.202476</longitud>
+            <latitud unidades="grados">47.009376</latitud>
+            <altitud unidades="metros">109</altitud>
+        </segmento>
+        <segmento sector="3">
+            <distancia unidades="metros">266</distancia>
+            <longitud unidades="grados">18.200856</longitud>
+            <latitud unidades="grados">47.007250</latitud>
+            <altitud unidades="metros">108</altitud>
+        </segmento>
+    </segmentos>
+    <vencedor
+        duracion="PT42M33S">Marc Márquez</vencedor>
+    <clasificacion>
+        <piloto clasificacion="1">Marc Marquez</piloto>
+        <piloto clasificacion="2">Pedro Acosta</piloto>
+        <piloto clasificacion="3">Marco Bezzecchi</piloto>
+    </clasificacion>
+</circuito>
