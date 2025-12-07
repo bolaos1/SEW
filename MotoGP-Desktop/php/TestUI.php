@@ -42,15 +42,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             break;
 
         case 'subir':
+            $profesion            = $_POST['profesion']             ?? '';
+            $edad                 = (int)($_POST['edad']            ?? 0);
+            $genero               = $_POST['genero']                ?? '';
+            $periciaInformatica   = $_POST['pericia_informatica']   ?? '';
             $comentariosUsuario   = $_POST['comentarios_usuario']   ?? '';
             $propuestasMejora     = $_POST['propuestas_mejora']     ?? '';
             $valoracion           = (int)($_POST['valoracion']      ?? 0);
             $comentariosFacilitador = $_POST['comentarios_facilitador'] ?? '';
-            $dispositivo          = $_POST['dispositivo']           ?? 'ordenador'; 
+            $dispositivo          = $_POST['dispositivo']           ?? 'ordenador';
 
             $config = new Configuracion();
 
             if ($config->guardarPruebaUsabilidad(
+                $profesion,
+                $edad,
+                $genero,
+                $periciaInformatica,
                 $dispositivo,
                 $test,
                 $comentariosUsuario,
@@ -158,6 +166,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form method="post" action="">
                 <article>
                     <h3>Datos del usuario</h3>
+                    <p>
+                        <label for="profesion">Profesión:</label>
+                        <input type="text" id="profesion" name="profesion" required>
+                    </p>
+                    <p>
+                        <label for="edad">Edad:</label>
+                        <input type="number" id="edad" name="edad" min="0" max="120" required>
+                    </p>
+                    <p>
+                        <label for="genero">Género:</label>
+                        <input type="text" id="genero" name="genero" required>
+                    </p>
+                    <p>
+                        <label for="pericia_informatica">Pericia informática:</label>
+                        <input type="text" id="pericia_informatica" name="pericia_informatica" required>
+                    </p>
                     <p>
                         <label for="dispositivo">Dispositivo utilizado:</label>
                         <select id="dispositivo" name="dispositivo">

@@ -160,98 +160,125 @@ private function importarTabla(string $tabla, string $rutaArchivo): bool {
     return true;
 }
 
-public function guardarPruebaUsabilidad(
-    string $dispositivo,
-    Test $test,
-    string $comentariosUsuario,
-    string $propuestasMejora,
-    int $valoracion,
-    string $comentariosFacilitador
-): bool {
-    if (!$this->usarBaseDatos()) {
-        return false;
+    public function guardarPruebaUsabilidad(
+        string $profesion,
+        int $edad,
+        string $genero,
+        string $periciaInformatica,
+        string $dispositivo,
+        Test $test,
+        string $comentariosUsuario,
+        string $propuestasMejora,
+        int $valoracion,
+        string $comentariosFacilitador
+    ): bool { // Cambio necesario para seguir la lógica de tablas
+        if (!$this->usarBaseDatos()) {
+            return false;
+        }
+
+        $tiempoSegundos = (int) round($test->getDuracionSegundos());
+
+        $this->conexion->begin_transaction();
+
+        try {
+            $sqlUsuario = "INSERT INTO usuarios (profesion, edad, genero, pericia_informatica)
+                           VALUES (?, ?, ?, ?)";
+
+            $stmtUsuario = $this->conexion->prepare($sqlUsuario);
+            if (!$stmtUsuario) {
+                throw new Exception("Error al preparar usuarios");
+            }
+
+            $stmtUsuario->bind_param(
+                "siss",
+                $profesion,
+                $edad,
+                $genero,
+                $periciaInformatica
+            );
+
+            if (!$stmtUsuario->execute()) {
+                throw new Exception("Error al insertar usuario");
+            }
+
+            $idUsuario = $this->conexion->insert_id;
+            $stmtUsuario->close();
+
+            $sqlPrueba = "INSERT INTO pruebas_usabilidad
+                (id_usuario, dispositivo, tiempo_segundos, completada,
+                 comentarios_usuario, propuestas_mejora, valoracion)
+                VALUES (?, ?, ?, 1, ?, ?, ?)";
+
+            $stmtPrueba = $this->conexion->prepare($sqlPrueba);
+            if (!$stmtPrueba) {
+                throw new Exception("Error al preparar pruebas_usabilidad");
+            }
+
+            $stmtPrueba->bind_param(
+                "isissi",
+                $idUsuario,
+                $dispositivo,
+                $tiempoSegundos,
+                $comentariosUsuario,
+                $propuestasMejora,
+                $valoracion
+            );
+
+            if (!$stmtPrueba->execute()) {
+                throw new Exception("Error al ejecutar pruebas_usabilidad");
+            }
+
+            $idPrueba = $this->conexion->insert_id;
+            $stmtPrueba->close();
+
+            $respuestas = $test->getRespuestas();
+
+            $sqlResp = "INSERT INTO respuestas_prueba
+                        (id_prueba, num_pregunta, respuesta)
+                        VALUES (?, ?, ?)";
+
+            $stmtResp = $this->conexion->prepare($sqlResp);
+            if (!$stmtResp) {
+                throw new Exception("Error al preparar respuestas_prueba");
+            }
+
+            foreach ($respuestas as $indice => $respuesta) {
+                $numPregunta = $indice + 1;
+                $stmtResp->bind_param("iis", $idPrueba, $numPregunta, $respuesta);
+                if (!$stmtResp->execute()) {
+                    throw new Exception("Error al insertar respuesta $numPregunta");
+                }
+            }
+
+            $stmtResp->close();
+
+            if (trim($comentariosFacilitador) !== '') {
+                $sqlObs = "INSERT INTO observaciones_facilitador
+                           (id_prueba, comentarios_facilitador)
+                           VALUES (?, ?)";
+
+                $stmtObs = $this->conexion->prepare($sqlObs);
+                if (!$stmtObs) {
+                    throw new Exception("Error al preparar observaciones_facilitador");
+                }
+
+                $stmtObs->bind_param("is", $idPrueba, $comentariosFacilitador);
+
+                if (!$stmtObs->execute()) {
+                    throw new Exception("Error al insertar observaciones_facilitador");
+                }
+
+                $stmtObs->close();
+            }
+
+            $this->conexion->commit();
+            return true;
+
+        } catch (Exception $e) {
+            $this->conexion->rollback();
+            return false;
+        }
     }
-
-    $tiempoSegundos = (int) round($test->getDuracionSegundos());
-
-    $this->conexion->begin_transaction();
-
-    try {
-        $sqlPrueba = "INSERT INTO pruebas_usabilidad
-            (dispositivo, tiempo_segundos, completada,
-             comentarios_usuario, propuestas_mejora, valoracion)
-            VALUES (?, ?, ?, 1, ?, ?, ?)";
-
-        $stmtPrueba = $this->conexion->prepare($sqlPrueba);
-        if (!$stmtPrueba) {
-            throw new Exception("Error al preparar pruebas_usabilidad");
-        }
-
-        $stmtPrueba->bind_param(
-            "isissi",
-            $idUsuario,
-            $dispositivo,
-            $tiempoSegundos,
-            $comentariosUsuario,
-            $propuestasMejora,
-            $valoracion
-        );
-
-        if (!$stmtPrueba->execute()) {
-            throw new Exception("Error al ejecutar pruebas_usabilidad");
-        }
-
-        $idPrueba = $this->conexion->insert_id; 
-        $stmtPrueba->close();
-
-        $respuestas = $test->getRespuestas();
-
-        $sqlResp = "INSERT INTO respuestas_prueba
-                    (id_prueba, num_pregunta, respuesta)
-                    VALUES (?, ?, ?)";
-
-        $stmtResp = $this->conexion->prepare($sqlResp);
-        if (!$stmtResp) {
-            throw new Exception("Error al preparar respuestas_prueba");
-        }
-
-        foreach ($respuestas as $indice => $respuesta) {
-            $numPregunta = $indice + 1;
-            $stmtResp->bind_param("iis", $idPrueba, $numPregunta, $respuesta);
-            if (!$stmtResp->execute()) {
-                throw new Exception("Error al insertar respuesta $numPregunta");
-            }
-        }
-
-        $stmtResp->close();
-
-        if (trim($comentariosFacilitador) !== '') {
-            $sqlObs = "INSERT INTO observaciones_facilitador
-                       (id_prueba, comentarios_facilitador)
-                       VALUES (?, ?)";
-
-            $stmtObs = $this->conexion->prepare($sqlObs);
-            if (!$stmtObs) {
-                throw new Exception("Error al preparar observaciones_facilitador");
-            }
-
-            $stmtObs->bind_param("is", $idPrueba, $comentariosFacilitador);
-
-            if (!$stmtObs->execute()) {
-                throw new Exception("Error al insertar observaciones_facilitador");
-            }
-
-            $stmtObs->close();
-        }
-
-        $this->conexion->commit();
-        return true;
-
-    } catch (Exception $e) {
-        $this->conexion->rollback();
-        return false;
-    }
-}
 
 
 
