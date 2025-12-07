@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='utf-8'?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <Placemark>
+      <name>Punto origen (salida/meta)</name>
+      <Point>
+        <coordinates>18.200833,47.007222,108</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Sector 1</name>
+      <LineString>
+        <tessellate>1</tessellate>
+        <altitudeMode>relativeToGround</altitudeMode>
+        <coordinates>18.200833,47.007222,108 18.198806,47.004579,109 18.198393,47.004773,109 18.198364,47.005665,109 18.197889,47.005809,109 18.197552,47.005632,109 18.197122,47.004997,109 18.197248,47.004408,109 18.198244,47.003605,109 18.198865,47.003521,110 18.199383,47.003726,109 18.202329,47.007592,109</coordinates>
+      </LineString>
+      <Style>
+        <LineStyle>
+          <color>#ff00ffff</color>
+          <width>5</width>
+        </LineStyle>
+      </Style>
+    </Placemark>
+    <Placemark>
+      <name>Sector 2</name>
+      <LineString>
+        <tessellate>1</tessellate>
+        <altitudeMode>relativeToGround</altitudeMode>
+        <coordinates>18.203025,47.008505,111 18.203492,47.008430,111 18.204036,47.007971,110 18.206213,47.008091,110 18.207152,47.007806,110 18.207728,47.007210,109 18.209083,47.003837,109 18.209765,47.003827,109 18.209994,47.002544,109 18.210481,47.002380,109 18.210875,47.002651,108 18.210377,47.004194,108</coordinates>
+      </LineString>
+      <Style>
+        <LineStyle>
+          <color>#ff00ff00</color>
+          <width>5</width>
+        </LineStyle>
+      </Style>
+    </Placemark>
+    <Placemark>
+      <name>Sector 3</name>
+      <LineString>
+        <tessellate>1</tessellate>
+        <altitudeMode>relativeToGround</altitudeMode>
+        <coordinates>18.209748,47.006140,108 18.208770,47.007392,110 18.207804,47.008064,110 18.204552,47.009376,109 18.204723,47.009740,109 18.204515,47.009952,109 18.203799,47.010397,109 18.202459,47.010224,109 18.202294,47.009964,109 18.202476,47.009376,109 18.200856,47.007250,108</coordinates>
+      </LineString>
+      <Style>
+        <LineStyle>
+          <color>#ffff0000</color>
+          <width>5</width>
+        </LineStyle>
+      </Style>
+    </Placemark>
+  </Document>
+</kml>
