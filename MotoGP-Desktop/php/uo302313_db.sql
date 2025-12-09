@@ -18,10 +18,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `uo302313_db`
+-- Base de datos: `UO302313_DB`
 --
-CREATE DATABASE IF NOT EXISTS `uo302313_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci;
-USE `uo302313_db`;
+CREATE DATABASE IF NOT EXISTS `UO302313_DB` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci;
+USE `UO302313_DB`;
 
 -- --------------------------------------------------------
 

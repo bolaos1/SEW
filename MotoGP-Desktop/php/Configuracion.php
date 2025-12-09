@@ -27,7 +27,7 @@ class Configuracion {
     private function usarBaseDatos(): bool {
         return $this->conexion->select_db(self::DB_NAME);
     }
-
+    
     public function existeBaseDatos(): bool {
         $resultado = $this->conexion->query(
             "SHOW DATABASES LIKE '" . self::DB_NAME . "'"
@@ -35,17 +35,36 @@ class Configuracion {
         return $resultado && $resultado->num_rows > 0;
     }
 
+    public function crear(): bool {
+        if ($this->existeBaseDatos()) {
+            return true; 
+        }
+        $sql = file_get_contents('uo302313_db.sql');
+        return $this->conexion->multi_query($sql);
+    }
+
+
     public function reiniciar(): bool {
+        if (!$this->existeBaseDatos()) {
+            return $this->crear();
+        }
+        
         if (!$this->usarBaseDatos()) {
             return false;
         }
-
-        $ok  = $this->conexion->query("DELETE FROM observaciones_facilitador");
-        $ok &= $this->conexion->query("DELETE FROM pruebas_usabilidad");
-        $ok &= $this->conexion->query("DELETE FROM usuarios");
-
+        
+        $this->conexion->query("SET FOREIGN_KEY_CHECKS = 0");
+        
+        $ok = $this->conexion->query("TRUNCATE TABLE observaciones_facilitador");
+        $ok &= $this->conexion->query("TRUNCATE TABLE respuestas_prueba");
+        $ok &= $this->conexion->query("TRUNCATE TABLE pruebas_usabilidad");
+        $ok &= $this->conexion->query("TRUNCATE TABLE usuarios");
+        
+        $this->conexion->query("SET FOREIGN_KEY_CHECKS = 1");
+        
         return (bool) $ok;
     }
+
 
     public function eliminar(): bool {
         $sql = "DROP DATABASE IF EXISTS " . self::DB_NAME;
@@ -171,7 +190,7 @@ private function importarTabla(string $tabla, string $rutaArchivo): bool {
         string $propuestasMejora,
         int $valoracion,
         string $comentariosFacilitador
-    ): bool { // Cambio necesario para seguir la lógica de tablas
+    ): bool {
         if (!$this->usarBaseDatos()) {
             return false;
         }

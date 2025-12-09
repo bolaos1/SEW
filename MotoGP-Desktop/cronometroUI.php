@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['botonParar'])) {
         $cronometro->parar();
-        $mensaje = "Cronómetro detenido: " . $cronometro->mostrar();
+        $mensaje = "Cronómetro detenido. ";
     }
 
     if (isset($_POST['botonMostrar'])) {

@@ -114,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <section>
             <h2>Iniciar prueba</h2>
             <p>Cuando pulses el botón se iniciará la prueba de usabilidad.</p>
-            <form method="post" action="">
+            <form method="post">
                 <p>
                     <button type="submit" name="accion" value="iniciar">
                         Iniciar prueba
@@ -134,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <article>
                 <p><?php echo htmlspecialchars($test->getPreguntaActual()); ?></p>
 
-                <form method="post" action="">
+                <form method="post">
                     <p>
                         <label for="respuesta">Respuesta:</label>
                         <input

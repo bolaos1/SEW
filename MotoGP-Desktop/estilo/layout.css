@@ -38,7 +38,7 @@ header nav{
     /*Redefinimos header nav en caso de un menor tamaño de viewport */
 
     /*Especificiad: (0,1,1)*/
-     body p:first-of-type{
+     body > p:first-of-type{
        display:none; 
     }
     

@@ -14,14 +14,11 @@ class Circuito {
 
         this.#contenedorInfo = document.createElement("section");
 
-        if (this.#inputArchivo) {
-            this.#inputArchivo.insertAdjacentElement(
-                "afterend",
-                this.#contenedorInfo
-            );
-        } else {
+        if (!this.#inputArchivo) {
             document.body.appendChild(this.#contenedorInfo);
         }
+            
+        
         this.#comprobarApiFile();
     }
 
@@ -185,10 +182,7 @@ class CargadorSVG {
         this.#contenedorSVG = document.createElement("section");
 
         if (this.#inputArchivoSVG) {
-            this.#inputArchivoSVG.insertAdjacentElement(
-                "afterend",
-                this.#contenedorMensaje
-            );
+            
             this.#contenedorMensaje.insertAdjacentElement(
                 "afterend",
                 this.#contenedorSVG
