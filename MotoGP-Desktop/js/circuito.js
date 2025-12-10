@@ -11,11 +11,7 @@ class Circuito {
         this.#contenedorMensaje = document.createElement("p");
         h2.insertAdjacentElement("afterend", this.#contenedorMensaje);
 
-        this.#contenedorInfo = document.createElement("section");
-        this.#contenedorMensaje.insertAdjacentElement(
-            "afterend",
-            this.#contenedorInfo
-        );
+        this.#contenedorInfo = null;
 
         this.#comprobarApiFile();
     }
@@ -88,19 +84,23 @@ class Circuito {
     }
 
     #procesarHTMLCircuito(contenido) {
+        if (!this.#contenedorInfo) {
+            this.#contenedorInfo = document.createElement("section");
+            this.#contenedorMensaje.insertAdjacentElement(
+                "afterend",
+                this.#contenedorInfo
+            );
+        }
         this.#contenedorInfo.innerHTML = "";
-
         const parser = new DOMParser();
         const doc = parser.parseFromString(contenido, "text/html");
         const cuerpo = doc.body;
-
         if (!cuerpo) {
             this.#mostrarMensaje(
                 "No se ha podido procesar el contenido del archivo HTML."
             );
             return;
         }
-
 
         const imagenes = cuerpo.querySelectorAll("img");
         imagenes.forEach((img) => {
@@ -143,10 +143,6 @@ class Circuito {
             source.setAttribute("src", nuevaSRC);
             video.load();
         });
-
-
-
-
         const h2 = document.createElement("h2");
         h2.textContent =
             "Elementos recuperados durante el procesamiento del HTML";
@@ -157,6 +153,7 @@ class Circuito {
             this.#contenedorInfo.appendChild(nodo.cloneNode(true));
         });
     }
+
 
     #mostrarMensaje(texto) {
         if (this.#contenedorMensaje) {
@@ -177,7 +174,7 @@ class CargadorSVG {
     constructor() {
         this.#inputArchivoSVG = document.querySelector("input[accept='.svg']");
         this.#contenedorMensaje = document.createElement("p");
-        this.#contenedorSVG = document.createElement("section");
+        this.#contenedorSVG = null;
 
         if (this.#inputArchivoSVG) {
             this.#inputArchivoSVG.insertAdjacentElement(
@@ -185,20 +182,15 @@ class CargadorSVG {
                 this.#contenedorMensaje
             );
 
-            this.#contenedorMensaje.insertAdjacentElement(
-                "afterend",
-                this.#contenedorSVG
-            );
-
             this.#cargarEventos();
         } else {
             document.body.appendChild(this.#contenedorMensaje);
-            document.body.appendChild(this.#contenedorSVG);
             this.#mostrarMensaje(
                 "No se ha encontrado el control para seleccionar el SVG."
             );
         }
     }
+
 
 
     #cargarEventos() {
@@ -250,6 +242,15 @@ class CargadorSVG {
     }
 
     insertarSVG(contenido) {
+        // ✅ Creamos la sección solo cuando el SVG es válido
+        if (!this.#contenedorSVG) {
+            this.#contenedorSVG = document.createElement("section");
+            this.#contenedorMensaje.insertAdjacentElement(
+                "afterend",
+                this.#contenedorSVG
+            );
+        }
+
         const parser = new DOMParser();
         const doc = parser.parseFromString(contenido, "image/svg+xml");
 
@@ -270,7 +271,7 @@ class CargadorSVG {
                 svg.setAttribute("version", "1.1");
             }
         }
-       
+
         this.#contenedorSVG.innerHTML = "";
         const h2 = document.createElement("h2");
         h2.textContent =
