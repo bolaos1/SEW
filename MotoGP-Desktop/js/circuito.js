@@ -125,7 +125,7 @@ class Circuito {
                 const trimmed = parte.trim();
                 const [url, descriptor] = trimmed.split(/\s+/, 2);
                 const nombre = url.split("/").pop();
-                const nuevaURL = "/MotoGP-Desktop/multimedia/" + nombre;
+                const nuevaURL = "multimedia/" + nombre;
                 return descriptor ? `${nuevaURL} ${descriptor}` : nuevaURL;
             });
 
@@ -140,7 +140,7 @@ class Circuito {
             if (!initialSRC) return;
 
             const nombre = initialSRC.split("/").pop();
-            const nuevaSRC = "/MotoGP-Desktop/multimedia/" + nombre;
+            const nuevaSRC = "multimedia/" + nombre;
 
             source.setAttribute("src", nuevaSRC);
             video.load();

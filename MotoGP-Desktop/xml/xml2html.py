@@ -23,7 +23,7 @@ class Html:
         self.parts.append(f"<title>{escape(titulo)}</title>")
         self.parts.append('<link rel="stylesheet" href="../estilo/estilo.css">')
         self.parts.append('<link rel="stylesheet" href="../estilo/layout.css">')
-        self.parts.append('<link rel="icon" href="multimedia/icon.ico" type="image/png" sizes="32x32">')
+        self.parts.append('<link rel="icon" href="../multimedia/icon.ico" type="image/png" sizes="32x32">')
         self.parts.append("</head>")
         self.parts.append("<body>")
 
