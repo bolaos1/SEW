@@ -6,14 +6,21 @@ class Circuito {
 
     constructor() {
         this.#inputArchivo = document.querySelector("input[accept='.html']");
-
-        const h2 = document.querySelector("h2");
         this.#contenedorMensaje = document.createElement("p");
-        h2.insertAdjacentElement("afterend", this.#contenedorMensaje);
-
         this.#contenedorInfo = null;
 
-        this.#comprobarApiFile();
+        if (this.#inputArchivo) {
+            this.#inputArchivo.insertAdjacentElement(
+                "afterend",
+                this.#contenedorMensaje
+            );
+            this.#comprobarApiFile();
+        } else {
+            document.body.appendChild(this.#contenedorMensaje);
+            this.#mostrarMensaje(
+                "No se ha encontrado el control para seleccionar el archivo HTML."
+            );
+        }
     }
 
     #comprobarApiFile() {
@@ -242,7 +249,6 @@ class CargadorSVG {
     }
 
     insertarSVG(contenido) {
-        // ✅ Creamos la sección solo cuando el SVG es válido
         if (!this.#contenedorSVG) {
             this.#contenedorSVG = document.createElement("section");
             this.#contenedorMensaje.insertAdjacentElement(
