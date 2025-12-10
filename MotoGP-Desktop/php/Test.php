@@ -5,7 +5,7 @@ class Test {
 
     private $preguntas = [];
     private $respuestas = [];
-    private $indiceActual = 0;   // 0..9
+    private $indiceActual = 0;
     private $cronometro;
     private $iniciada = false;
     private $finalizada = false;

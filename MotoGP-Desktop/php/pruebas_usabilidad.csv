@@ -1,0 +1,4 @@
+id_prueba;id_usuario;dispositivo;tiempo_segundos;completada;comentarios_usuario;propuestas_mejora;valoracion
+1;1;ordenador;214;1;0505;10001;6
+2;2;telefono;22;1;10010101;101001;10
+3;3;tableta;257;1;"Esta bastante bien";No;10
