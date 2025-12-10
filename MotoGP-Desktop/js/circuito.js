@@ -9,16 +9,14 @@ class Circuito {
 
         const h2 = document.querySelector("h2");
         this.#contenedorMensaje = document.createElement("p");
-
         h2.insertAdjacentElement("afterend", this.#contenedorMensaje);
 
         this.#contenedorInfo = document.createElement("section");
+        this.#contenedorMensaje.insertAdjacentElement(
+            "afterend",
+            this.#contenedorInfo
+        );
 
-        if (!this.#inputArchivo) {
-            document.body.appendChild(this.#contenedorInfo);
-        }
-            
-        
         this.#comprobarApiFile();
     }
 
@@ -182,7 +180,11 @@ class CargadorSVG {
         this.#contenedorSVG = document.createElement("section");
 
         if (this.#inputArchivoSVG) {
-            
+            this.#inputArchivoSVG.insertAdjacentElement(
+                "afterend",
+                this.#contenedorMensaje
+            );
+
             this.#contenedorMensaje.insertAdjacentElement(
                 "afterend",
                 this.#contenedorSVG
@@ -197,6 +199,7 @@ class CargadorSVG {
             );
         }
     }
+
 
     #cargarEventos() {
         this.#inputArchivoSVG.addEventListener(
