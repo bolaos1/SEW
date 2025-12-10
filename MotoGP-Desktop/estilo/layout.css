@@ -15,13 +15,19 @@ header nav{
     flex-direction:row;
     gap:20px;
 }
- /* Contenedor del mapa: único div hijo directo de body */
-    body > div {
-        width: 100%;
-        height: 400px;
-        margin-top: 1em;    
-    }
+ /*Especificidad: (0,0,1)*/
+body > div {
+    width: 100%;
+    height: 400px;
+    margin-top: 1em;    
+}
 
+/*Especificidad: (0,0,1)*/
+input[type="file"] {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5em;
+}
 
 
 @media (min-width: 320px) and (max-width: 799px){
