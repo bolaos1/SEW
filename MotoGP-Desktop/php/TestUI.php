@@ -11,11 +11,31 @@ $test = $_SESSION['test'];
 
 $mensaje = '';
 
+$fase = $test->getFase();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $accion = $_POST['accion'] ?? '';
 
     switch ($accion) {
         case 'iniciar':
+            $profesion            = trim($_POST['profesion']           ?? '');
+            $edad                 = (int)($_POST['edad']              ?? 0);
+            $genero               = trim($_POST['genero']             ?? '');
+            $periciaInformatica   = trim($_POST['pericia_informatica'] ?? '');
+            $dispositivo          = $_POST['dispositivo']            ?? 'ordenador';
+
+            if ($profesion === '' || $edad <= 0 || $genero === '' || $periciaInformatica === '') {
+                $mensaje = 'Debes rellenar todos los datos del usuario antes de iniciar la prueba.';
+                break;
+            }
+
+            $test->setDatosUsuario(
+                $profesion,
+                $edad,
+                $genero,
+                $periciaInformatica,
+                $dispositivo
+            );
             $test->iniciar();
             break;
 
@@ -30,36 +50,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             break;
 
-        case 'terminar':
+        case 'finalizar':
             $respuesta = $_POST['respuesta'] ?? '';
             $test->guardarRespuestaActual($respuesta);
 
             if ($test->respuestaActualVacia()) {
                 $mensaje = 'Debes responder también a esta pregunta antes de terminar.';
             } else {
-                $test->terminar();
+                $test->finalizarPreguntas();
             }
             break;
 
+        case 'comentarios_siguiente':
+            $comentariosUsuario = $_POST['comentarios_usuario'] ?? '';
+            $propuestasMejora   = $_POST['propuestas_mejora'] ?? '';
+            $valoracion         = (int)($_POST['valoracion'] ?? 0);
+
+            $test->setComentariosUsuario(
+                $comentariosUsuario,
+                $propuestasMejora,
+                $valoracion
+            );
+            $test->setFase('observaciones_facilitador');
+            break;
+
         case 'subir':
-            $profesion            = $_POST['profesion']             ?? '';
-            $edad                 = (int)($_POST['edad']            ?? 0);
-            $genero               = $_POST['genero']                ?? '';
-            $periciaInformatica   = $_POST['pericia_informatica']   ?? '';
-            $comentariosUsuario   = $_POST['comentarios_usuario']   ?? '';
-            $propuestasMejora     = $_POST['propuestas_mejora']     ?? '';
-            $valoracion           = (int)($_POST['valoracion']      ?? 0);
+            $comentariosUsuario     = $test->getComentariosUsuario();
+            $propuestasMejora       = $test->getPropuestasMejora();
+            $valoracion             = $test->getValoracion();
             $comentariosFacilitador = $_POST['comentarios_facilitador'] ?? '';
-            $dispositivo          = $_POST['dispositivo']           ?? 'ordenador';
+            $datosUsuario          = $test->getDatosUsuario();
 
             $config = new Configuracion();
 
             if ($config->guardarPruebaUsabilidad(
-                $profesion,
-                $edad,
-                $genero,
-                $periciaInformatica,
-                $dispositivo,
+                $datosUsuario['profesion'],
+                $datosUsuario['edad'],
+                $datosUsuario['genero'],
+                $datosUsuario['pericia_informatica'],
+                $datosUsuario['dispositivo'],
                 $test,
                 $comentariosUsuario,
                 $propuestasMejora,
@@ -79,6 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     $_SESSION['test'] = $test;
+    $fase = $test->getFase();
 }
 ?>
 
@@ -109,21 +139,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </section>
     <?php endif; ?>
 
-    <?php if (!$test->estaIniciada()): ?>
+    <?php if ($fase === 'datos_usuario'): ?>
 
         <section>
-            <h2>Iniciar prueba</h2>
-            <p>Cuando pulses el botón se iniciará la prueba de usabilidad.</p>
-            <form method="post">
+            <h2>Datos del usuario</h2>
+            <form method="post" id="form-datos-usuario">
+                <article>
+                    <p>
+                        <label for="profesion">Profesión:</label>
+                        <input type="text" id="profesion" name="profesion" required>
+                    </p>
+                    <p>
+                        <label for="edad">Edad:</label>
+                        <input type="number" id="edad" name="edad" min="1" max="120" required>
+                    </p>
+                    <p>
+                        <label for="genero">Género:</label>
+                        <select id="genero" name="genero" required>
+                            <option value="" selected disabled>Selecciona una opción</option>
+                            <option value="masculino">masculino</option>
+                            <option value="femenino">femenino</option>
+                            <option value="otro">otro</option>
+                        </select>
+                    </p>
+                    <p>
+                        <label for="pericia_informatica">Pericia informática:</label>
+                        <input type="text" id="pericia_informatica" name="pericia_informatica" required>
+                    </p>
+                    <p>
+                        <label for="dispositivo">Dispositivo utilizado:</label>
+                        <select id="dispositivo" name="dispositivo">
+                            <option value="ordenador">Ordenador</option>
+                            <option value="tableta">Tableta</option>
+                            <option value="telefono">Teléfono</option>
+                        </select>
+                    </p>
+                </article>
+
                 <p>
-                    <button type="submit" name="accion" value="iniciar">
+                    <button type="submit" id="btn-iniciar" name="accion" value="iniciar">
                         Iniciar prueba
                     </button>
                 </p>
             </form>
         </section>
 
-    <?php elseif (!$test->estaFinalizada()): ?>
+    <?php elseif ($fase === 'preguntas'): ?>
 
         <section>
             <h2>
@@ -146,8 +207,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     <p>
                         <?php if ($test->esUltimaPregunta()): ?>
-                            <button type="submit" name="accion" value="terminar">
-                                Terminar prueba
+                            <button type="submit" name="accion" value="finalizar">
+                                Finalizar prueba
                             </button>
                         <?php else: ?>
                             <button type="submit" name="accion" value="siguiente">
@@ -159,45 +220,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </article>
         </section>
 
-    <?php else: ?>
+    <?php elseif ($fase === 'comentarios_usuario'): ?>
 
         <section>
-            <h2>Comentarios finales</h2>
+            <h2>Comentarios del usuario</h2>
             <form method="post" action="">
                 <article>
-                    <h3>Datos del usuario</h3>
-                    <p>
-                        <label for="profesion">Profesión:</label>
-                        <input type="text" id="profesion" name="profesion" required>
-                    </p>
-                    <p>
-                        <label for="edad">Edad:</label>
-                        <input type="number" id="edad" name="edad" min="0" max="120" required>
-                    </p>
-                    <p>
-                        <label for="genero">Género:</label>
-                        <input type="text" id="genero" name="genero" required>
-                    </p>
-                    <p>
-                        <label for="pericia_informatica">Pericia informática:</label>
-                        <input type="text" id="pericia_informatica" name="pericia_informatica" required>
-                    </p>
-                    <p>
-                        <label for="dispositivo">Dispositivo utilizado:</label>
-                        <select id="dispositivo" name="dispositivo">
-                            <option value="ordenador">Ordenador</option>
-                            <option value="tableta">Tableta</option>
-                            <option value="telefono">Teléfono</option>
-                        </select>
-                    </p>
-                    <p>
-                        <label for="valoracion">Valoración de la aplicación (0-10):</label>
-                        <input type="number" id="valoracion" name="valoracion" min="0" max="10" required>
-                    </p>
-                </article>
-
-                <article>
-                    <h3>Comentarios del usuario</h3>
                     <p>
                         <label for="comentarios_usuario">Comentarios:</label>
                         <textarea id="comentarios_usuario" name="comentarios_usuario" rows="4"></textarea>
@@ -206,10 +234,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <label for="propuestas_mejora">Propuestas de mejora:</label>
                         <textarea id="propuestas_mejora" name="propuestas_mejora" rows="4"></textarea>
                     </p>
+                    <p>
+                        <label for="valoracion">Valoración de la aplicación (0-10):</label>
+                        <input type="number" id="valoracion" name="valoracion" min="0" max="10" required>
+                    </p>
                 </article>
 
+                <p>
+                    <button type="submit" name="accion" value="comentarios_siguiente">
+                        Siguiente
+                    </button>
+                </p>
+            </form>
+        </section>
+
+    <?php elseif ($fase === 'observaciones_facilitador'): ?>
+
+        <section>
+            <h2>Observaciones del facilitador</h2>
+            <form method="post" action="">
                 <article>
-                    <h3>Observaciones del facilitador</h3>
                     <p>
                         <label for="comentarios_facilitador">Comentarios del facilitador:</label>
                         <textarea id="comentarios_facilitador" name="comentarios_facilitador" rows="4"></textarea>
@@ -227,5 +271,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
 
 </main>
+<script>
+    const formularioDatos = document.getElementById('form-datos-usuario');
+    if (formularioDatos) {
+        const botonIniciar = document.getElementById('btn-iniciar');
+        const camposRequeridos = formularioDatos.querySelectorAll('[required]');
+
+        const validarCampos = () => {
+            let completo = true;
+            camposRequeridos.forEach((campo) => {
+                if (campo.type === 'select-one') {
+                    if (!campo.value) {
+                        completo = false;
+                    }
+                } else if (campo.value.trim() === '') {
+                    completo = false;
+                }
+            });
+            botonIniciar.disabled = !completo;
+        };
+
+        camposRequeridos.forEach((campo) => {
+            campo.addEventListener('input', validarCampos);
+            campo.addEventListener('change', validarCampos);
+        });
+
+        validarCampos();
+    }
+</script>
 </body>
 </html>
