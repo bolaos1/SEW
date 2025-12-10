@@ -9,6 +9,19 @@ class Test {
     private $cronometro;
     private $iniciada = false;
     private $finalizada = false;
+    private $fase = 'datos_usuario';
+    private $horaInicio = null;
+    private $horaFin = null;
+    private $datosUsuario = [
+        'profesion' => '',
+        'edad' => 0,
+        'genero' => '',
+        'pericia_informatica' => '',
+        'dispositivo' => 'ordenador'
+    ];
+    private $comentariosUsuario = '';
+    private $propuestasMejora = '';
+    private $valoracion = 0;
 
     public function __construct() {
         $this->preguntas = [
@@ -38,6 +51,10 @@ class Test {
         return $this->finalizada;
     }
 
+    public function getFase(): string {
+        return $this->fase;
+    }
+
     public function getPreguntaActual(): string {
         return $this->preguntas[$this->indiceActual];
     }
@@ -57,7 +74,9 @@ class Test {
     public function iniciar(): void {
         if (!$this->iniciada) {
             $this->iniciada = true;
-            $this->cronometro->arrancar(); 
+            $this->cronometro->arrancar();
+            $this->horaInicio = date('Y-m-d H:i:s');
+            $this->fase = 'preguntas';
         }
     }
 
@@ -75,10 +94,12 @@ class Test {
         }
     }
 
-    public function terminar(): void {
+    public function finalizarPreguntas(): void {
         if (!$this->finalizada) {
             $this->finalizada = true;
             $this->cronometro->parar();
+            $this->horaFin = date('Y-m-d H:i:s');
+            $this->fase = 'comentarios_usuario';
         }
     }
 
@@ -87,7 +108,61 @@ class Test {
         return $this->respuestas;
     }
 
-    public function getDuracionSegundos(): float {    
-        return $this->cronometro->getTiempo(); 
+    public function getDuracionSegundos(): float {
+        return $this->cronometro->getTiempo();
+    }
+
+    public function setDatosUsuario(
+        string $profesion,
+        int $edad,
+        string $genero,
+        string $periciaInformatica,
+        string $dispositivo
+    ): void {
+        $this->datosUsuario = [
+            'profesion' => $profesion,
+            'edad' => $edad,
+            'genero' => $genero,
+            'pericia_informatica' => $periciaInformatica,
+            'dispositivo' => $dispositivo
+        ];
+    }
+
+    public function getDatosUsuario(): array {
+        return $this->datosUsuario;
+    }
+
+    public function setComentariosUsuario(
+        string $comentariosUsuario,
+        string $propuestasMejora,
+        int $valoracion
+    ): void {
+        $this->comentariosUsuario = $comentariosUsuario;
+        $this->propuestasMejora = $propuestasMejora;
+        $this->valoracion = $valoracion;
+    }
+
+    public function getComentariosUsuario(): string {
+        return $this->comentariosUsuario;
+    }
+
+    public function getPropuestasMejora(): string {
+        return $this->propuestasMejora;
+    }
+
+    public function getValoracion(): int {
+        return $this->valoracion;
+    }
+
+    public function setFase(string $fase): void {
+        $this->fase = $fase;
+    }
+
+    public function getHoraInicio(): ?string {
+        return $this->horaInicio;
+    }
+
+    public function getHoraFin(): ?string {
+        return $this->horaFin;
     }
 }
