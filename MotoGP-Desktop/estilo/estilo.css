@@ -10,12 +10,13 @@ body{
 }
 /*Especificidad: (0,0,1)*/
 header{
+  color:red;
   background-color:#1A1A1A;  
 }
 
 a {
   text-decoration: none;
-  color: white;
+  color: red;
 }
 
 /*Especifidad: (0,1,0) */
