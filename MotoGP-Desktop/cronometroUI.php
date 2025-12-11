@@ -26,7 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mensaje = "Tiempo transcurrido: " . $cronometro->mostrar();
     }
 
-    // Opcional, si quieres botón de reinicio:
     if (isset($_POST['botonReiniciar'])) {
         $cronometro->reiniciar();
         $mensaje = "Cronómetro reiniciado.";

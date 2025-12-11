@@ -22,7 +22,6 @@ class Cronometro {
 
     public function getTiempo() {
         if ($this->inicio !== null) {
-            // Si sigue corriendo, devolvemos el tiempo hasta ahora
             return microtime(true) - $this->inicio;
         }
         return $this->tiempo;
