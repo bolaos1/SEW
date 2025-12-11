@@ -5,30 +5,43 @@
 /*Especifidad:(0,0,1)*/
 body{
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  background-color: #B6BDCD;
+  background-color: #7d8aa6;
   color: #1D1E2A;
 }
 /*Especificidad: (0,0,1)*/
 header{
-  color:#FFB3B3;
+  color:#00FFFF;
   background-color:#1A1A1A;  
 }
 
-a {
-  text-decoration: none;
-  color: #FFB3B3;
+/*Especifidad: (0,0,1)*/
+a{
+  color: #ffeb3b;
+  text-decoration-line: none;
+  /*Advertencia de color permitida: hereda backgroundcolor del header*/
 }
 
+/*Especifidad: (0,1,1)*/
+a:hover, a:focus{
+  color:#fff59d; 
+  /*Advertencia de color permitida: hereda backgroundcolor del header*/
+}
+
+/*Especifidad: (0,0,2)*/
+header a {
+  color:#00FFFF;
+  /*Advertencia de color permitida: hereda backgroundcolor del header*/
+}
 /*Especifidad: (0,1,0) */
 .active{
-  color:aqua;
+  color:#7d8aa6;
   /*Advertencia de color permitida: hereda backgroundcolor del header*/
 }
 /*Especifidad:(0,1,2)*/
 body > p:first-of-type {
   font-size: 0.75em;
 }
-/*Especifidad:(0,0,1)*/
+  
 video {
   max-height: 60em;
   max-width: 60em;

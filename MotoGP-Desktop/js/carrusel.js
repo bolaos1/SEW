@@ -75,7 +75,7 @@ class Carrusel {
         const $section = $("<section></section>");
         const $article = $("<article></article>");
         const $h2Section = $("<h2></h2>").text("Carrusel de imágenes");
-        const $h2 = $("<h2></h2>").text(
+        const $h2 = $("<h3></h3>").text(
             "Imágenes del circuito de " + this.#busqueda
         );
 
